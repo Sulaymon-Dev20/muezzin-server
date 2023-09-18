@@ -1,0 +1,78 @@
+version: '3.8'
+name: muezzin-zipkin-eurika
+
+services:
+  muezzin1:
+    container_name: muezzin-server
+    image: sulaymonyahyo/muezzin-server:latest
+    ports:
+      - "8000:5677"
+    environment:
+      - SPRINGDOC_SWAGGER-UI_ENABLED=true
+      - EUREKA_CLIENT_ENABLED=true
+      - EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+      - MANAGEMENT_TRACING_ENABLED=true
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+      - eureka-server
+
+#  muezzin2:
+#    container_name: muezzin-server-2
+#    image: sulaymonyahyo/muezzin-server:latest
+#    ports:
+#      - "8001:5677"
+#    environment:
+#      - SPRINGDOC_SWAGGER-UI_ENABLED=false
+#      - EUREKA_CLIENT_ENABLED=true
+#      - EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE=http://eureka-server:8761/eureka
+#      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+#      - MANAGEMENT_TRACING_ENABLED=true
+#    networks:
+#      - spring
+#    depends_on:
+#      - zipkin
+#      - eureka-server
+
+  eureka-server:
+    image: sulaymonyahyo/quran-eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+      - SPRING_SECURITY_USER_NAME=admin
+      - SPRING_SECURITY_USER_PASSWORD=admin
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+
+  service-gateway:
+    image: sulaymonyahyo/quran-gateway:latest
+    container_name: service-gateway
+    ports:
+      - "4123:4123"
+    environment:
+      - EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+    #      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=${EUREKA_URL}
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+      - eureka-server
+
+  zipkin:
+    image: openzipkin/zipkin:2.24.2
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - spring
+
+networks:
+  spring:
+    driver: bridge

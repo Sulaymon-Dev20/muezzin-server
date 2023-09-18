@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: muezzin-server-config
+data:
+  SPRINGDOC_SWAGGER-UI_ENABLED: "true"
+  EUREKA_CLIENT_ENABLED: "true"
+  EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE: http://eureka-server:8761/eureka
+  MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
+  MANAGEMENT_TRACING_ENABLED: "true"

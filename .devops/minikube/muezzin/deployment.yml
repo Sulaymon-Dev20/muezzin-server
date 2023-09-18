@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: muezzin-server
+  labels:
+    app: muezzin-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: muezzin-server
+      labels:
+        app: muezzin-server
+    spec:
+      containers:
+        - name: muezzin-server
+          image: sulaymonyahyo/muezzin-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5677
+          envFrom:
+            - configMapRef:
+                name: muezzin-server-config
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: muezzin-server

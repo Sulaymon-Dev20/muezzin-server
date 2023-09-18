@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: muezzin-server
+spec:
+  selector:
+    app: muezzin-server
+  ports:
+    - port: 80
+      targetPort: 5677
+  type: LoadBalancer
