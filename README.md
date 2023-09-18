@@ -32,6 +32,7 @@ cd muezzin-server
 ```bash
 mvn clean install
 ```
+
 4. Run the application:
 
 ```bash
