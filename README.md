@@ -55,7 +55,7 @@ If you have any further questions or need assistance with specific configuration
 
 #Usage
 
-![generate muezzin image usage](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![generate muezzin image usage](USAGE.gif)
 
 #Contributing
 
@@ -63,7 +63,11 @@ Explain how others can contribute to your project. Include guidelines for pull r
 
 #License
 
-Specify the license under which your project is distributed.
+name: Apache License Version 2.0 <br>
+url: https://www.apache.org/licenses/LICENSE-2.0
+
+name: GeoLite2 License <br>
+url: https://www.maxmind.com/en/geolite2/eula
 
 #Contact
 
