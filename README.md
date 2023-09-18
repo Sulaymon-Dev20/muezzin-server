@@ -57,10 +57,6 @@ If you have any further questions or need assistance with specific configuration
 
 ![generate muezzin image usage](USAGE.gif)
 
-#Contributing
-
-Explain how others can contribute to your project. Include guidelines for pull requests and code style.
-
 #License
 
 name: Apache License Version 2.0 <br>
