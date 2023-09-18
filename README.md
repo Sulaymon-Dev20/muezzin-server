@@ -1,12 +1,19 @@
 # Project Muezzin
 
-As a developer, here’s some spatial text to describe the application `"Muezzin"` that I’ve created:<br><br>
-Muezzin is a web application developed using `Spring Boot 3` and Springdoc Swagger for frontend and mobile developers. The main purpose of this application is to generate the daily prayer times of Islam in the form of an image.<br><br>
-To accurately calculate the prayer times based on the user’s location, I have utilized the `GeoIP2` library. It helps in generating prayer times by determining the user’s location using their IP address. Additionally, the Adhan library has been integrated to generate the precise prayer times.<br><br>
-To enhance the user experience, the application generates `QR codes` for prayer times using the `Zxing` library. This allows users to easily share the prayer times with others.<br><br>
-For better scalability and load balancing, the application uses the `Netflix Eureka` client. By default, the load balancer feature is `disabled`, but it can be enabled if desired.<br><br>
-To support multiple languages, the application incorporates `i18n` (Internationalization). This allows users to switch between different languages to view the prayer times according to their preference.<br><br>
-For convenient deployment, the application leverages `Google Jib` and `Dockerfile`. This enables the creation of containerized images that can be easily deployed in `Kubernetes`.<br><br>
+As a developer, here’s some spatial text to describe the application `"Muezzin"` that I’ve created:
+
+Muezzin is a web application developed using `Spring Boot 3` and Springdoc Swagger for frontend and mobile developers. The main purpose of this application is to generate the daily prayer times of Islam in the form of an image.
+
+To accurately calculate the prayer times based on the user’s location, I have utilized the `GeoIP2` library. It helps in generating prayer times by determining the user’s location using their IP address. Additionally, the Adhan library has been integrated to generate the precise prayer times.
+
+To enhance the user experience, the application generates `QR codes` for prayer times using the `Zxing` library. This allows users to easily share the prayer times with others.
+
+For better scalability and load balancing, the application uses the `Netflix Eureka` client. By default, the load balancer feature is `disabled`, but it can be enabled if desired.
+
+To support multiple languages, the application incorporates `i18n` (Internationalization). This allows users to switch between different languages to view the prayer times according to their preference.
+
+For convenient deployment, the application leverages `Google Jib` and `Dockerfile`. This enables the creation of containerized images that can be easily deployed in `Kubernetes`.
+
 Overall, Muezzin is a comprehensive application encompassing various technologies and libraries to provide accurate and user-friendly daily prayer times of Islam. By utilizing containerization and efficient deployment techniques, the application is designed to be easily deployed on any platform.
 
 ## Prerequisites
