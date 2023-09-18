@@ -23,6 +23,8 @@ Overall, Muezzin is a comprehensive application encompassing various technologie
 
 ## Getting Started
 
+###Machine
+
 1. Clone the repository:
 ```bash
 git clone https://github.com/Sulaymon-Dev20/muezzin-server.git
@@ -48,6 +50,17 @@ mvn spring-boot:run
 http://localhost:5677
 ```
 
+###Docker
+
+1. Pull the latest Muezzin Server Docker image by running the following command:
+```bash
+docker pull sulaymonyahyo/muezzin-server:latest
+```
+
+2.Once the image has been downloaded, you can start the Muezzin Server container by executing the following command:
+```bash
+docker run -p 5677:5677 sulaymonyahyo/muezzin-server:latest
+```
 #Configuration
 
 If you want to use Netflix Eureka client for load balancing, you should change the eureka.client.enabled property to true in the application.yml file. By default, it is set to false. This will enable the Eureka client to register with the Eureka server for service discovery and load balancing.
