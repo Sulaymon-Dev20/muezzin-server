@@ -17,13 +17,11 @@ Overall, Muezzin is a comprehensive application encompassing various technologie
 ## Getting Started
 
 1. Clone the repository:
-
 ```bash
 git clone https://github.com/Sulaymon-Dev20/muezzin-server.git
 ```
 
 2. Navigate to the project directory:
-
 ```bash
 cd muezzin-server
 ```
@@ -34,7 +32,6 @@ mvn clean install
 ```
 
 4. Run the application:
-
 ```bash
 mvn spring-boot:run
 ```
