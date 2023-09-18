@@ -19,26 +19,28 @@ Overall, Muezzin is a comprehensive application encompassing various technologie
 1. Clone the repository:
 
 ```bash
-  git clone https://github.com/Sulaymon-Dev20/muezzin-server.git
+git clone https://github.com/Sulaymon-Dev20/muezzin-server.git
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-  cd muezzin-server
+cd muezzin-server
 ```
 
 3. Build the project using Maven:
 ```bash
-  mvn clean install
+mvn clean install
 ```
 4. Run the application:
+
 ```bash
-  mvn spring-boot:run
+mvn spring-boot:run
 ```
+
 5. Access the application in your browser:
 ```
-  http://localhost:5677
+http://localhost:5677
 ```
 
 #Configuration
