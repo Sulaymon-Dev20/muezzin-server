@@ -16,4 +16,6 @@ public class GeoIP {
     private String fullLocation;
     @Schema(title = "Location", description = "The coordinates of the location")
     private Coordinates location;
+    @Schema(title = "TimeZone", description = "The timezone of the location")
+    private String timeZone;
 }

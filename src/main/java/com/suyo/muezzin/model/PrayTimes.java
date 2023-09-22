@@ -21,12 +21,13 @@ public class PrayTimes {
     @Schema(title = "Isha", example = "08:30 PM", description = "The time of the Isha prayer")
     private String isha;
 
-    public PrayTimes(PrayerTimes prayerTimes,boolean is24) {
-        this.fajr = getTime(prayerTimes.fajr, is24);
-        this.sunrise = getTime(prayerTimes.sunrise, is24);
-        this.dhuhr = getTime(prayerTimes.dhuhr, is24);
-        this.asr = getTime(prayerTimes.asr, is24);
-        this.maghrib = getTime(prayerTimes.maghrib, is24);
-        this.isha = getTime(prayerTimes.isha, is24);
+    public PrayTimes(PrayerTimes prayerTimes, boolean is24, String zoneId) {
+        this.fajr = getTime(prayerTimes.fajr, is24, zoneId);
+        this.sunrise = getTime(prayerTimes.sunrise, is24, zoneId);
+        this.dhuhr = getTime(prayerTimes.dhuhr, is24, zoneId);
+        this.asr = getTime(prayerTimes.asr, is24, zoneId);
+        this.maghrib = getTime(prayerTimes.maghrib, is24, zoneId);
+        this.isha = getTime(prayerTimes.isha, is24, zoneId);
     }
+
 }

@@ -6,13 +6,11 @@ import com.maxmind.geoip2.model.CityResponse;
 import com.suyo.muezzin.model.GeoIP;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import ua_parser.Client;
 import ua_parser.Parser;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Objects;
 
@@ -47,11 +45,13 @@ public class GetLocationService {
                 location = String.format("%s, %s, %s", continent, country, cityResponse.getCity().getName());
                 position.setCity(cityResponse.getCity().getName());
                 position.setFullLocation(location);
+                position.setTimeZone(cityResponse.getLocation().getTimeZone());
                 position.setLocation(new Coordinates(Objects.requireNonNullElse(cityResponse.getLocation().getLatitude(), 0.0), Objects.requireNonNullElse(cityResponse.getLocation().getLongitude(), 0.0)));
                 position.setDevice(getDeviceDetails(request.getHeader("user-agent")));
                 position.setIpAddress(ip);
             }
         } catch (Exception e) {
+            position.setTimeZone("Asia/Tashkent");
             position.setLocation(new Coordinates(41.289960, 69.358807));
             position.setFullLocation("Tashkent");
         }

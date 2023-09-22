@@ -63,13 +63,14 @@ public class GenerateImageService {
         parameters.madhab = madhab;
         final PrayerTimes prayerTimes = new PrayerTimes(userInfo.getLocation(), new DateComponents(date.getYear(), date.getMonthValue(), date.getDayOfMonth()), parameters);//fixme should to check -1 month
 
-        int x2 = (image.getWidth() - g.getFontMetrics().stringWidth(timeType == TimeType.T24 ? "15:15" : "03:15 PM")) - 40;
-        g.drawString(getTime(prayerTimes.fajr, timeType == TimeType.T24), x2, (int) (image.getHeight() * 0.30));
-        g.drawString(getTime(prayerTimes.sunrise, timeType == TimeType.T24), x2, (int) (image.getHeight() * 0.35));
-        g.drawString(getTime(prayerTimes.dhuhr, timeType == TimeType.T24), x2, (int) (image.getHeight() * 0.40));
-        g.drawString(getTime(prayerTimes.asr, timeType == TimeType.T24), x2, (int) (image.getHeight() * 0.45));
-        g.drawString(getTime(prayerTimes.maghrib, timeType == TimeType.T24), x2, (int) (image.getHeight() * 0.50));
-        g.drawString(getTime(prayerTimes.isha, timeType == TimeType.T24), x2, (int) (image.getHeight() * 0.55));
+        final boolean is24Hour = timeType == TimeType.T24;
+        int x2 = (image.getWidth() - g.getFontMetrics().stringWidth(is24Hour ? "15:15" : "03:15 PM")) - 40;
+        g.drawString(getTime(prayerTimes.fajr, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.30));
+        g.drawString(getTime(prayerTimes.sunrise, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.35));
+        g.drawString(getTime(prayerTimes.dhuhr, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.40));
+        g.drawString(getTime(prayerTimes.asr, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.45));
+        g.drawString(getTime(prayerTimes.maghrib, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.50));
+        g.drawString(getTime(prayerTimes.isha, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.55));
 
         g.drawImage(qrcode, (image.getWidth() - qrcode.getWidth()) / 2, (int) (image.getHeight() * 0.65), null);
         int x3 = (image.getWidth() - g.getFontMetrics().stringWidth(userInfo.getFullLocation())) / 2;
@@ -84,7 +85,7 @@ public class GenerateImageService {
         final CalculationParameters parameters = method.getParameters();
         parameters.madhab = madhab;
         final PrayerTimes prayerTimes = new PrayerTimes(userInfo.getLocation(), new DateComponents(date.getYear(), date.getMonthValue(), date.getDayOfMonth()), parameters);//fixme should to check -1 month
-        return new PrayTimesMain(getDateString(date, false, Locale.US), getDateString(date, true, Locale.US), madhab, method, new PrayTimes(prayerTimes, timeType == TimeType.T24), userInfo);
+        return new PrayTimesMain(getDateString(date, false, Locale.US), getDateString(date, true, Locale.US), madhab, method, new PrayTimes(prayerTimes, timeType == TimeType.T24, userInfo.getTimeZone()), userInfo);
     }
 
     public BufferedImage resize(BufferedImage originalImage, int newWidth, int newHeight) {
