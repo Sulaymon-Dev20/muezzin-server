@@ -44,6 +44,9 @@ public class MuezzinController {
 
     @GetMapping(value = "muezzin.json", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Retrieve Data json", description = "Retrieve data json based on the provided parameters")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "OK - The request was successful")
+    })
     public ResponseEntity<PrayTimesMain> getData(HttpServletRequest request,
                                                  @Parameter(description = "Default current day") @RequestParam(required = false) Integer day,
                                                  @Parameter(description = "Default current month") @RequestParam(required = false) Integer month,
