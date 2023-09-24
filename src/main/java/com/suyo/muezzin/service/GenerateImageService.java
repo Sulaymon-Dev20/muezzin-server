@@ -34,8 +34,8 @@ public class GenerateImageService {
     private final GenerateQRCodeService generateQRCodeService;
     private final MessageSource source;
 
-    private String getMessage(Locale locale, String key, String defaultValue, Object... args) {
-        return source.getMessage(key, args, defaultValue, locale);
+    private String getMessage(Locale locale, String key, Object... args) {
+        return source.getMessage(key, args, key, locale);
     }
 
     @SneakyThrows
@@ -45,19 +45,19 @@ public class GenerateImageService {
         final BufferedImage qrcode = generateQRCodeService.generateQRCode(qrMessage, 300, 300);
         Graphics g = image.getGraphics();
         g.setFont(g.getFont().deriveFont(70f));
-        int x = (image.getWidth() - g.getFontMetrics().stringWidth(getMessage(locale, "prayer_times", "Nomoz taqvimi"))) / 2;
-        g.drawString(getMessage(locale, "prayer_times", "Nomoz taqvimi"), x, (int) (image.getHeight() * 0.10));
+        int x = (image.getWidth() - g.getFontMetrics().stringWidth(getMessage(locale, "prayer_times"))) / 2;
+        g.drawString(getMessage(locale, "prayer_times"), x, (int) (image.getHeight() * 0.10));
         g.setFont(g.getFont().deriveFont(40f));
         x = 40;
         g.drawString(getDateString(date, false, locale), x, (int) (image.getHeight() * 0.17));
         g.drawString(getDateString(date, true, locale), x, (int) (image.getHeight() * 0.23));
         g.setFont(g.getFont().deriveFont(60f));
-        g.drawString(getMessage(locale, "fajr", "Bomdod"), x, (int) (image.getHeight() * 0.30));
-        g.drawString(getMessage(locale, "sunrise", "Quyosh"), x, (int) (image.getHeight() * 0.35));
-        g.drawString(getMessage(locale, "dhuhr", "Peshin"), x, (int) (image.getHeight() * 0.40));
-        g.drawString(getMessage(locale, "afternoon_prayer", "Asr"), x, (int) (image.getHeight() * 0.45));
-        g.drawString(getMessage(locale, "maghrib", "Shom"), x, (int) (image.getHeight() * 0.50));
-        g.drawString(getMessage(locale, "isha", "Xufton"), x, (int) (image.getHeight() * 0.55));
+        g.drawString(getMessage(locale, "fajr"), x, (int) (image.getHeight() * 0.30));
+        g.drawString(getMessage(locale, "sunrise"), x, (int) (image.getHeight() * 0.35));
+        g.drawString(getMessage(locale, "dhuhr"), x, (int) (image.getHeight() * 0.40));
+        g.drawString(getMessage(locale, "afternoon_prayer"), x, (int) (image.getHeight() * 0.45));
+        g.drawString(getMessage(locale, "maghrib"), x, (int) (image.getHeight() * 0.50));
+        g.drawString(getMessage(locale, "isha"), x, (int) (image.getHeight() * 0.55));
 
         final CalculationParameters parameters = calculationMethod.getParameters();
         parameters.madhab = madhab;
@@ -96,23 +96,23 @@ public class GenerateImageService {
         return resizedImage;
     }
 
-    public String getDateString(LocalDate date, boolean isHijri, Locale locale) {
+    private String getDateString(LocalDate date, boolean isHijri, Locale locale) {
         if (isHijri) {
             final LocalDate muslimDate = toMuslim(date);
-            return muslimDate.getYear() + "-" + getMessage(locale, "year", "year") + " " + muslimDate.getDayOfMonth() + "-" + getMessage(locale, arabicMonth[muslimDate.getMonthValue() - 1], "");
+            return muslimDate.getYear() + "-" + getMessage(locale, "year", "year") + " " + muslimDate.getDayOfMonth() + "-" + getMessage(locale, arabicMonth[muslimDate.getMonthValue() - 1]);
         } else {
-            return date.getYear() + "-" + getMessage(locale, "year", "year") + " " + date.getDayOfMonth() + "-" + getMessage(locale, englishMonth[date.getMonthValue() - 1], "");
+            return date.getYear() + "-" + getMessage(locale, "year", "year") + " " + date.getDayOfMonth() + "-" + getMessage(locale, englishMonth[date.getMonthValue() - 1]);
         }
     }
 
-    public LocalDate toMuslim(LocalDate gregorianDate) {
+    private LocalDate toMuslim(LocalDate gregorianDate) {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         final String hijrahDateString = HijrahChronology.INSTANCE.date(gregorianDate).format(formatter);
         return LocalDate.parse(hijrahDateString, formatter);
     }
 
-    public String getImage(String image, LocalDate date) {
-        return image == null ? "image/image" + toSentence(date.getDayOfWeek().toString()) + ".jpeg" : switch (image) {
+    private String getImage(String image, LocalDate date) {
+        return image != null ? switch (image) {
             case "1", "Monday" -> "image/imageMonday.jpeg";
             case "2", "Tuesday" -> "image/imageTuesday.jpeg";
             case "3", "Wednesday" -> "image/imageWednesday.jpeg";
@@ -121,7 +121,7 @@ public class GenerateImageService {
             case "6", "Saturday" -> "image/imageSaturday.jpeg";
             case "7", "Sunday" -> "image/imageSunday.jpeg";
             default -> "image/error.jpeg";
-        };
+        } : "image/image" + toSentence(date.getDayOfWeek().toString()) + ".jpeg";
     }
 
     private String toSentence(String text) {
