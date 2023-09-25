@@ -1,25 +1,22 @@
 package com.suyo.muezzin.config;
 
-import io.micrometer.common.lang.NonNull;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class CorsConfig {
+public class CorsConfig implements WebMvcConfigurer {
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
+    @Value("${spring.application.cors:false}")
+    private boolean corsStatus;
 
-            @Override
-            public void addCorsMappings(@NonNull CorsRegistry registry) {
-                registry.addMapping("/**")
-                    .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
-                    .allowedHeaders("*")
-                    .allowedOrigins("*");
-            }
-        };
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**") // Add your mapping pattern here
+            .allowedOrigins("*") // Allow all origins
+            .allowedMethods("GET", "POST", "PUT", "DELETE") // Allowed HTTP methods
+            .allowedHeaders("*") // Allow all headers
+            .allowCredentials(corsStatus); // Allow credentials
     }
 }
