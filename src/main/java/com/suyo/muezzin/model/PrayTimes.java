@@ -1,10 +1,9 @@
 package com.suyo.muezzin.model;
 
 import com.batoulapps.adhan.PrayerTimes;
+import com.suyo.muezzin.service.PrayTimeService;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import static com.suyo.muezzin.service.PrayTimeService.getTime;
 
 @Data
 public class PrayTimes {
@@ -22,12 +21,11 @@ public class PrayTimes {
     private String isha;
 
     public PrayTimes(PrayerTimes prayerTimes, boolean is24, String zoneId) {
-        this.fajr = getTime(prayerTimes.fajr, is24, zoneId);
-        this.sunrise = getTime(prayerTimes.sunrise, is24, zoneId);
-        this.dhuhr = getTime(prayerTimes.dhuhr, is24, zoneId);
-        this.asr = getTime(prayerTimes.asr, is24, zoneId);
-        this.maghrib = getTime(prayerTimes.maghrib, is24, zoneId);
-        this.isha = getTime(prayerTimes.isha, is24, zoneId);
+        this.fajr = new PrayTimeService(prayerTimes.fajr, is24, zoneId).getTime();
+        this.sunrise = new PrayTimeService(prayerTimes.sunrise, is24, zoneId).getTime();
+        this.dhuhr = new PrayTimeService(prayerTimes.dhuhr, is24, zoneId).getTime();
+        this.asr = new PrayTimeService(prayerTimes.asr, is24, zoneId).getTime();
+        this.maghrib = new PrayTimeService(prayerTimes.maghrib, is24, zoneId).getTime();
+        this.isha = new PrayTimeService(prayerTimes.isha, is24, zoneId).getTime();
     }
-
 }

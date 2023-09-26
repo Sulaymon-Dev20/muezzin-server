@@ -25,12 +25,9 @@ import java.time.chrono.HijrahChronology;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import static com.suyo.muezzin.service.PrayTimeService.getTime;
-
 @Service
 @RequiredArgsConstructor
 public class GenerateImageService {
-
     private final GenerateQRCodeService generateQRCodeService;
     private final MessageSource source;
 
@@ -65,12 +62,12 @@ public class GenerateImageService {
 
         final boolean is24Hour = timeType == TimeType.T24;
         int x2 = (image.getWidth() - g.getFontMetrics().stringWidth(is24Hour ? "15:15" : "03:15 PM")) - 40;
-        g.drawString(getTime(prayerTimes.fajr, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.30));
-        g.drawString(getTime(prayerTimes.sunrise, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.35));
-        g.drawString(getTime(prayerTimes.dhuhr, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.40));
-        g.drawString(getTime(prayerTimes.asr, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.45));
-        g.drawString(getTime(prayerTimes.maghrib, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.50));
-        g.drawString(getTime(prayerTimes.isha, is24Hour, userInfo.getTimeZone()), x2, (int) (image.getHeight() * 0.55));
+        g.drawString(new PrayTimeService(prayerTimes.fajr, is24Hour, userInfo.getTimeZone()).getTime(), x2, (int) (image.getHeight() * 0.30));
+        g.drawString(new PrayTimeService(prayerTimes.sunrise, is24Hour, userInfo.getTimeZone()).getTime(), x2, (int) (image.getHeight() * 0.35));
+        g.drawString(new PrayTimeService(prayerTimes.dhuhr, is24Hour, userInfo.getTimeZone()).getTime(), x2, (int) (image.getHeight() * 0.40));
+        g.drawString(new PrayTimeService(prayerTimes.asr, is24Hour, userInfo.getTimeZone()).getTime(), x2, (int) (image.getHeight() * 0.45));
+        g.drawString(new PrayTimeService(prayerTimes.maghrib, is24Hour, userInfo.getTimeZone()).getTime(), x2, (int) (image.getHeight() * 0.50));
+        g.drawString(new PrayTimeService(prayerTimes.isha, is24Hour, userInfo.getTimeZone()).getTime(), x2, (int) (image.getHeight() * 0.55));
 
         g.drawImage(qrcode, (image.getWidth() - qrcode.getWidth()) / 2, (int) (image.getHeight() * 0.65), null);
         int x3 = (image.getWidth() - g.getFontMetrics().stringWidth(userInfo.getFullLocation())) / 2;
